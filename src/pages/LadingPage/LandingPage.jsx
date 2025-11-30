@@ -1,9 +1,10 @@
 import React from 'react'
+import Headers from '../../components/landing/Headers'
 
 const LandingPage = () => {
   return (
-    <div>
-      Ladngin
+    <div className='bg-[#ffffff] text-gray-600 '>
+        <Headers/>
     </div>
   )
 }

@@ -14,7 +14,7 @@ import AllInvoice from "./pages/Invoices/AllInvoice";
 import CreateInvoice from "./pages/Invoices/CreateInvoice";
 import ProfilePage from "./pages/Profile/ProfilePage";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
-
+import InvoiceDetail from './pages/Invoices/InvoiceDetail'
 const App = () => {
   return (
     <Router>
@@ -25,7 +25,7 @@ const App = () => {
 
         {/* Protected Routes */}
         <Route path="/" element={<ProtectedRoute />}>
-          <Route path="/dashbaord" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/invoices" element={<AllInvoice />} />
           <Route path="/invoices/new" element={<CreateInvoice />} />
           <Route path="/invoices/:id" element={<InvoiceDetail />} />
