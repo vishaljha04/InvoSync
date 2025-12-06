@@ -149,7 +149,7 @@ const Headers = () => {
             </a>
 
             <a
-              href="#faq"
+              href="#faqs"
               className="text-gray-700 text-base font-medium hover:text-blue-900 transition-all"
             >
               FAQ

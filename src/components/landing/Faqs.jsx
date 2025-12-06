@@ -10,7 +10,7 @@ const Faqs = () => {
   };
 
   return (
-    <section id="faqs" className="relative bg-[#fbfbfb] py-24 overflow-hidden">
+    <section id="faq" className="relative bg-[#fbfbfb] py-24 overflow-hidden">
       <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:60px_60px]"></div>
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 const Feature = () => {
   return (
     <section
-      id="features"
+      id="feature"
       className="relative bg-[#fbfbfb] py-20 overflow-hidden"
     >
       <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:60px_60px]"></div>
