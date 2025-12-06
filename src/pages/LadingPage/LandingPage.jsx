@@ -2,6 +2,7 @@ import React from "react";
 import Headers from "../../components/landing/Headers";
 import Hero from "../../components/landing/Hero";
 import Feature from "../../components/landing/Feature";
+import Testimonials from "../../components/landing/Testimonials";
 
 const LandingPage = () => {
   return (
@@ -10,6 +11,7 @@ const LandingPage = () => {
       <main>
         <Hero />
         <Feature/>
+        <Testimonials/>
       </main>
     </div>
   );
