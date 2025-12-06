@@ -77,3 +77,41 @@ export const TESTIMONIALS = [
       "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&q=80",
   },
 ];
+
+export const FAQS = [
+  {
+    question: "What is Invosync?",
+    answer:
+      "Invosync is an AI-powered invoicing tool that helps you generate invoices, send payment reminders, and get smart financial insights automatically.",
+  },
+  {
+    question: "Do I need to know anything about invoicing to use it?",
+    answer:
+      "Not at all! You can paste any text, email, or notes, and our AI will turn it into a complete invoice for you.",
+  },
+  {
+    question: "Is Invosync free to use?",
+    answer:
+      "Yes! You can create invoices and use basic features for free. Advanced AI tools and analytics may require a premium plan.",
+  },
+  {
+    question: "Can I manage multiple clients?",
+    answer:
+      "Absolutely. You can store unlimited clients, track invoices for each, and organize everything from one clean dashboard.",
+  },
+  {
+    question: "Does Invosync send reminders automatically?",
+    answer:
+      "Yes! With one click, Invosync can generate polite, professional reminder emails for overdue payments.",
+  },
+  {
+    question: "Is my data secure?",
+    answer:
+      "All your information is encrypted and stored securely. We do not share your invoices or client data with any third parties.",
+  },
+  {
+    question: "Can I download my invoices as PDF?",
+    answer:
+      "Yes, every invoice can be exported as a clean, professional PDF ready to send to your clients.",
+  },
+];

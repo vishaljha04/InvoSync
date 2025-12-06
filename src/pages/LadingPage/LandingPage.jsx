@@ -3,6 +3,7 @@ import Headers from "../../components/landing/Headers";
 import Hero from "../../components/landing/Hero";
 import Feature from "../../components/landing/Feature";
 import Testimonials from "../../components/landing/Testimonials";
+import Faqs from "../../components/landing/Faqs";
 
 const LandingPage = () => {
   return (
@@ -12,6 +13,7 @@ const LandingPage = () => {
         <Hero />
         <Feature/>
         <Testimonials/>
+        <Faqs/>
       </main>
     </div>
   );
