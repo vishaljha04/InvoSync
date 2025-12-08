@@ -1,11 +1,14 @@
-@import "tailwindcss";
 @import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
 
+@import "tailwindcss";
+
 @theme {
-  --font-display: "Urbanist", sans-serief;
+  --font-display: "Urbanist", sans-serif; 
   --breakpoint-3xl: 1920px;
   --color-primary: #ff9324;
 }
+
+/* 4️⃣ Then layers */
 @layer base {
   html {
     font-family: var(--font-display);

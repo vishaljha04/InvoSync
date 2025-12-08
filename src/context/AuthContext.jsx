@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  Children,
-} from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
 
@@ -64,6 +58,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(newUserData));
     setUser(newUserData);
   };
+
   const value = {
     user,
     loading,
@@ -73,5 +68,8 @@ export const AuthProvider = ({ children }) => {
     updateUser,
     checkAuthStatus,
   };
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+
+  return (
+    <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  );
 };
