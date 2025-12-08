@@ -14,37 +14,40 @@ import AllInvoice from "./pages/Invoices/AllInvoice";
 import CreateInvoice from "./pages/Invoices/CreateInvoice";
 import ProfilePage from "./pages/Profile/ProfilePage";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
-import InvoiceDetail from './pages/Invoices/InvoiceDetail'
+import InvoiceDetail from "./pages/Invoices/InvoiceDetail";
+import { AuthProvider } from "./context/AuthContext";
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
 
-        {/* Protected Routes */}
-        <Route path="/" element={<ProtectedRoute />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/invoices" element={<AllInvoice />} />
-          <Route path="/invoices/new" element={<CreateInvoice />} />
-          <Route path="/invoices/:id" element={<InvoiceDetail />} />
-          <Route path="/profile" element={<ProfilePage />} />
-        </Route>
+          {/* Protected Routes */}
+          <Route path="/" element={<ProtectedRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/invoices" element={<AllInvoice />} />
+            <Route path="/invoices/new" element={<CreateInvoice />} />
+            <Route path="/invoices/:id" element={<InvoiceDetail />} />
+            <Route path="/profile" element={<ProfilePage />} />
+          </Route>
 
-        {/* Catch all routes */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+          {/* Catch all routes */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
 
-      <Toaster
-        toastOptions={{
-          className: "",
-          style: {
-            fontSize: "13px",
-          },
-        }}
-      />
-    </Router>
+        <Toaster
+          toastOptions={{
+            className: "",
+            style: {
+              fontSize: "13px",
+            },
+          }}
+        />
+      </Router>
+    </AuthProvider>
   );
 };
 
