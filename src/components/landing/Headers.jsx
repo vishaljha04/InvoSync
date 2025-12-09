@@ -3,20 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { FileText, Menu, X } from "lucide-react";
 import ProfileDropdown from "../layout/ProfileDropdown";
 import Button from "../ui/Button";
+import { useAuth } from "../../context/AuthContext";
 
 const Headers = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const navigate = useNavigate();
-  const isAuthenticated = false;
-
-  const user = {
-    name: "Alex",
-    email: "alex23@gmail.com",
-  };
-
-  const handleLogout = () => {};
+  const {isAuthenticated,user,logout} = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -93,7 +87,7 @@ const Headers = () => {
                 avatar={user?.avatar || ""}
                 companyName={user?.name}
                 email={user?.email}
-                onLogout={handleLogout}
+                onLogout={logout}
               />
             ) : (
               <div className="flex items-center space-x-3">
