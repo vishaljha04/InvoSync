@@ -1,4 +1,12 @@
-import { BarChart2, FileText, icons, Mail, Sparkle } from "lucide-react";
+import {
+  BarChart2,
+  FileText,
+  LayoutDashboard,
+  Mail,
+  Plus,
+  Sparkle,
+  Users,
+} from "lucide-react";
 
 export const FEATURE = [
   {
@@ -114,4 +122,11 @@ export const FAQS = [
     answer:
       "Yes, every invoice can be exported as a clean, professional PDF ready to send to your clients.",
   },
+];
+
+export const NAVIGATION_MENU = [
+  { id: "dashboard", name: "Dashboard", icon: LayoutDashboard },
+  { id: "invoices", name: "Invoices", icon: FileText },
+  { id: "invoices/new", name: "Create Invoice", icon: Plus },
+  { id: "profile", name: "Profile", icon: Users },
 ];

@@ -123,6 +123,9 @@ const SignUp = () => {
       setTimeout(() => navigate("/login"), 1200);
     } catch (err) {
       setError(err?.response?.data?.message || "Signup failed. Try again.");
+      if (err?.response?.data?.message === "User already exists") {
+          navigate('/login')
+      } 
     } finally {
       setIsLoading(false);
     }
