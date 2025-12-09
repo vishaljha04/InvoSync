@@ -7,14 +7,16 @@ const axiosInstance = axios.create({
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
+    Authorization: `bearer ${localStorage.getItem("token")}`,
   },
 });
 
 axiosInstance.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem("token");
+    console.log(accessToken)
     if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+      config.headers.Authorization = `bearer ${accessToken}`;
     }
     return config;
   },
@@ -35,7 +37,7 @@ axiosInstance.interceptors.response.use(
     } else if (error.code === "ECONNABORTED") {
       console.error("Request timeout.Pleae try again");
     }
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
 );
 
