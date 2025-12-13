@@ -108,19 +108,57 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
     }
   }, [existingInvoice]);
 
-  const handleInputChange = (e, section, index) => {};
+  const handleInputChange = (e, section, index) => {
+    const { name, value } = e.target;
 
-  const handleAddItem = () => {
-    setFormData({
-      ...FormData,
-      items: [
-        ...FormData.items,
-        { name: "", quantity: 1, unitPrice: 0, taxPercent: 0 },
-      ],
+    setFormData((prev) => {
+      // ✅ ITEMS
+      if (section === "items") {
+        const updatedItems = [...prev.items];
+
+        updatedItems[index] = {
+          ...updatedItems[index],
+          [name]:
+            name === "quantity" || name === "unitPrice" || name === "taxPercent"
+              ? Number(value)
+              : value,
+        };
+
+        return { ...prev, items: updatedItems };
+      }
+
+      // ✅ NESTED OBJECTS
+      if (section) {
+        return {
+          ...prev,
+          [section]: {
+            ...prev[section],
+            [name]: value,
+          },
+        };
+      }
+
+      // ✅ ROOT LEVEL
+      return { ...prev, [name]: value };
     });
   };
 
-  const handleRemoveItem = (index) => {};
+  const handleAddItem = () => {
+    setFormData((prev) => ({
+      ...prev,
+      items: [
+        ...prev.items,
+        { name: "", quantity: 1, unitPrice: 0, taxPercent: 0 },
+      ],
+    }));
+  };
+
+  const handleRemoveItem = (index) => {
+    setFormData((prev) => ({
+      ...prev,
+      items: prev.items.filter((_, i) => i !== index),
+    }));
+  };
 
   const { subTotal, taxTotal, total } = (() => {
     let subTotal = 0,
@@ -136,6 +174,34 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    const itemWithTotal = FormData.items.map((item) => ({
+      ...item,
+      total:
+        (item.quantity || 0) *
+        (item.unitPrice || 0) *
+        (1 + (item.taxPercent || 0) / 100),
+    }));
+    const finalFormData = {
+      ...FormData,
+      items: itemWithTotal,
+      subTotal,
+      taxTotal,
+      total,
+    };
+
+    if (onSave) {
+      await onSave(finalFormData);
+    } else {
+      try {
+        await axiosInstance.post(API_PATHS.INVOICE.CREATE, finalFormData);
+        toast.success("Invoice Created Successfully");
+        navigate("/invoices");
+      } catch (error) {
+        toast.error("Failed to create invoice.");
+        console.error(error);
+      }
+    }
+    setLoading(false);
   };
 
   return (
@@ -240,6 +306,168 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
             value={FormData.billTo.phone}
             onChange={(e) => handleInputChange(e, "billTo")}
           />
+        </div>
+      </div>
+
+      <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-lg font-semibold text-slate-900">Items</h3>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="border-b bg-slate-50 text-sm text-slate-600">
+                <th className="py-3 px-2 text-left">Item</th>
+                <th className="py-3 px-2 text-left w-20">Qty</th>
+                <th className="py-3 px-2 text-left w-28">Price</th>
+                <th className="py-3 px-2 text-left w-24">Tax (%)</th>
+                <th className="py-3 px-2 text-left w-28">Total</th>
+                <th className="py-3 px-2 w-10"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {FormData.items.map((item, index) => {
+                const quantity = item.quantity || 0;
+                const unitPrice = item.unitPrice || 0;
+                const taxPercent = item.taxPercent || 0;
+
+                const itemTotal =
+                  quantity * unitPrice +
+                  quantity * unitPrice * (taxPercent / 100);
+
+                return (
+                  <tr
+                    key={index}
+                    className="border-b last:border-b-0 hover:bg-slate-50"
+                  >
+                    <td className="py-2 px-2">
+                      <input
+                        type="text"
+                        name="name"
+                        value={item.name || ""}
+                        onChange={(e) => handleInputChange(e, "items", index)}
+                        placeholder="Item description"
+                        className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                      />
+                    </td>
+
+                    <td className="py-2 px-2">
+                      <input
+                        type="number"
+                        name="quantity"
+                        value={quantity}
+                        min="1"
+                        onChange={(e) => handleInputChange(e, "items", index)}
+                        placeholder="0"
+                        className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                      />
+                    </td>
+
+                    <td className="py-2 px-2">
+                      <input
+                        type="number"
+                        name="unitPrice"
+                        value={unitPrice}
+                        min="0"
+                        step="0.01"
+                        onChange={(e) => handleInputChange(e, "items", index)}
+                        placeholder="0.00"
+                        className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                      />
+                    </td>
+
+                    <td className="py-2 px-2">
+                      <input
+                        type="number"
+                        name="taxPercent"
+                        value={taxPercent}
+                        min="0"
+                        onChange={(e) => handleInputChange(e, "items", index)}
+                        placeholder="0"
+                        className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                      />
+                    </td>
+
+                    <td className="py-2 px-2 font-medium text-slate-900">
+                      {itemTotal.toFixed(2) || "0.00"}
+                    </td>
+
+                    <td className="py-2 px-2 text-right">
+                      {FormData.items.length > 1 && (
+                        <Button
+                          type="button"
+                          varient="ghost"
+                          size="small"
+                          onClick={() => handleRemoveItem(index)}
+                        >
+                          <Trash2
+                            className="text-red-500 hover:text-red-600 cursor-pointer"
+                            size={16}
+                          />
+                        </Button>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <Button
+          type="button"
+          varient="secondary"
+          onClick={handleAddItem}
+          icon={Plus}
+        >
+          Add Item
+        </Button>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200 space-y-4">
+          <h3 className="text-lg font-semibold text-slate-900">
+            Notes & Terms
+          </h3>
+
+          <TextAreaField
+            label="Note"
+            name="notes"
+            value={FormData.notes || ""}
+            onChange={handleInputChange}
+            placeholder="Additional notes or instructions..."
+          />
+
+          <SelectField
+            label="Payment Terms"
+            name="paymentTerms"
+            value={FormData.paymentTerms || "Net 15"}
+            onChange={handleInputChange}
+            options={["Net 15", "Net 30", "Net 60", "Due on receipt"]}
+          />
+        </div>
+
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200 flex justify-end">
+          <div className="w-full max-w-sm space-y-3 text-sm">
+            <div className="flex justify-between text-slate-600">
+              <span>Subtotal</span>
+              <span>${(subTotal || 0).toFixed(2)}</span>
+            </div>
+
+            <div className="flex justify-between text-slate-600">
+              <span>Tax</span>
+              <span>${(taxTotal || 0).toFixed(2)}</span>
+            </div>
+
+            <div className="border-t pt-3 flex justify-between font-semibold text-base text-slate-900">
+              <span>Total</span>
+              <span>${(total || 0).toFixed(2)}</span>
+            </div>
+          </div>
         </div>
       </div>
     </form>
