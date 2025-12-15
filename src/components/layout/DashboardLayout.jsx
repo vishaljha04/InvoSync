@@ -17,7 +17,9 @@ const DashboardLayout = ({ children, activeMenu }) => {
     return (
       <div
         onClick={() => onClick(item.id)}
-        className="px-3 py-2 rounded-lg cursor-pointer hover:bg-blue-50 transition-all duration-200"
+        className={`px-3 py-2 rounded-lg cursor-pointer hover:bg-blue-50 transition-all duration-200 ${
+          isActive ? "bg-blue-100  border-l-4 border-blue-400 " : ""
+        } `}
       >
         <Icon className="h-5 w-5 inline-block mr-3" />
         {!isCollapsed && item.name}
@@ -144,8 +146,12 @@ const DashboardLayout = ({ children, activeMenu }) => {
             )}
             <div>
               <h1 className="sm:text-base text-sm font-semibold flex items-center justify-center text-gray-900">
-                Welcome <span className="hidden sm:block">{"  "}back</span>,{" "}
-                {user?.name}
+                Welcome <span className="hidden sm:block">{"  "}back</span>,
+                <span className="text-blue-500">
+                  {user?.name
+                    ? user.name.charAt(0).toUpperCase() + user.name.slice(1)
+                    : ""}
+                </span>
               </h1>
               <p className="text-sm text-gray-500 hidden sm:block">
                 Here's your invoice overview

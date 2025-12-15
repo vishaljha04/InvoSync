@@ -13,7 +13,7 @@ import {
   Mail,
 } from "lucide-react";
 import moment from "moment";
-import { useNavigation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/ui/Button";
 
 const AllInvoice = () => {
@@ -26,7 +26,7 @@ const AllInvoice = () => {
   const [isAiModalOpen, setTsAiModalOpen] = useState(false);
   const [isRemainderModalOpen, setisRemainderModalOpen] = useState(false);
   const [selectedInvoiceId, setSelectedInvoiceId] = useState(null);
-  const navigate = useNavigation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchInvoices = async () => {

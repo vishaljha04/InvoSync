@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import hero from '../../assets/hero.png'
+import hero from "../../assets/hero.png";
 import { useAuth } from "../../context/AuthContext";
 const Hero = () => {
-  const {isAuthenticated} = useAuth();
+  const { isAuthenticated } = useAuth();
   return (
     <section className="relative bg-[#fbfbfb] overflow-hidden">
       <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:60px_60px]"></div>
@@ -45,7 +45,7 @@ const Hero = () => {
           <img
             src={hero}
             alt=""
-            className="rounded-2xl shadow-2xl shadow-gray-300 border-4 border-gray-200/20"
+            className="w-full h-auto max-h-[500px] object-cover rounded-2xl shadow-2xl shadow-gray-300 border-4 border-gray-200/20"
           />
         </div>
       </div>

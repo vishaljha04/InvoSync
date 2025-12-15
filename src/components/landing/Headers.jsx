@@ -21,7 +21,7 @@ const Headers = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close dropdown when clicking outside
+
   useEffect(() => {
     const handleClickOutside = () => {
       setProfileDropdownOpen(false);
@@ -44,7 +44,7 @@ const Headers = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo */}
+      
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-blue-900 rounded-md flex items-center justify-center">
               <FileText className="w-4 h-4 text-white" />
@@ -52,7 +52,6 @@ const Headers = () => {
             <span className="text-xl font-bold text-gray-900">Invosync</span>
           </div>
 
-          {/* Desktop Menu */}
           <div className="hidden lg:flex lg:items-center lg:space-x-8">
             <a
               href="#testimonials"

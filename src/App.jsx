@@ -25,13 +25,12 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
 
-          {/* Protected Routes */}
           <Route path="/" element={<ProtectedRoute />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/invoices" element={<AllInvoice />} />
-            <Route path="/invoices/new" element={<CreateInvoice />} />
-            <Route path="/invoices/:id" element={<InvoiceDetail />} />
-            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="invoices" element={<AllInvoice />} />
+            <Route path="invoices/new" element={<CreateInvoice />} />
+            <Route path="invoices/:id" element={<InvoiceDetail />} />
+            <Route path="profile" element={<ProfilePage />} />
           </Route>
 
           {/* Catch all routes */}
