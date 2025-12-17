@@ -2,7 +2,19 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPath";
-import { Plus, Trash2, Calculator, FileText, User, Calendar, DollarSign, Phone, MapPin, Mail, CreditCard } from "lucide-react";
+import {
+  Plus,
+  Trash2,
+  Calculator,
+  FileText,
+  User,
+  Calendar,
+  DollarSign,
+  Phone,
+  MapPin,
+  Mail,
+  CreditCard,
+} from "lucide-react";
 import toast from "react-hot-toast";
 import moment from "moment";
 import { useAuth } from "../../context/AuthContext";
@@ -46,7 +58,9 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
   );
 
   const [loading, setLoading] = useState(false);
-  const [isGeneratingNumber, setIsGeneratingNumber] = useState(!existingInvoice);
+  const [isGeneratingNumber, setIsGeneratingNumber] = useState(
+    !existingInvoice
+  );
 
   useEffect(() => {
     const aiData = location.state?.aiData;
@@ -60,12 +74,14 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
           address: aiData.address || "",
           phone: aiData.phone || "",
         },
-        items: aiData.items || [{
-          name: "",
-          quantity: 1,
-          unitPrice: 0,
-          taxPercent: 0,
-        }],
+        items: aiData.items || [
+          {
+            name: "",
+            quantity: 1,
+            unitPrice: 0,
+            taxPercent: 0,
+          },
+        ],
       }));
     }
 
@@ -117,9 +133,10 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
         const updatedItems = [...prev.items];
         updatedItems[index] = {
           ...updatedItems[index],
-          [name]: name === "quantity" || name === "unitPrice" || name === "taxPercent"
-            ? Number(value)
-            : value,
+          [name]:
+            name === "quantity" || name === "unitPrice" || name === "taxPercent"
+              ? Number(value)
+              : value,
         };
         return { ...prev, items: updatedItems };
       }
@@ -165,7 +182,7 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
       const taxPercent = item.taxPercent || 0;
       const itemTotal = quantity * unitPrice;
       const itemTax = itemTotal * (taxPercent / 100);
-      
+
       return {
         subTotal: acc.subTotal + itemTotal,
         taxTotal: acc.taxTotal + itemTax,
@@ -177,18 +194,21 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.items.some(item => !item.name.trim())) {
+    if (formData.items.some((item) => !item.name.trim())) {
       toast.error("Please fill all item descriptions");
       return;
     }
-    
+
     setLoading(true);
-    
+
     const itemsWithTotal = formData.items.map((item) => ({
       ...item,
-      total: (item.quantity || 0) * (item.unitPrice || 0) * (1 + (item.taxPercent || 0) / 100),
+      total:
+        (item.quantity || 0) *
+        (item.unitPrice || 0) *
+        (1 + (item.taxPercent || 0) / 100),
     }));
-    
+
     const finalFormData = {
       ...formData,
       items: itemsWithTotal,
@@ -213,7 +233,10 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 md:space-y-8 px-2 sm:px-4 md:px-0">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-4 sm:space-y-6 md:space-y-8 px-2 sm:px-4 md:px-0"
+    >
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-3 sm:p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
         <div className="flex items-center gap-3">
@@ -225,12 +248,14 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
               {existingInvoice ? "Edit Invoice" : "Create New Invoice"}
             </h2>
             <p className="text-xs sm:text-sm text-slate-600">
-              {existingInvoice ? "Update invoice details" : "Fill in the details below"}
+              {existingInvoice
+                ? "Update invoice details"
+                : "Fill in the details below"}
             </p>
           </div>
         </div>
-        <Button 
-          type="submit" 
+        <Button
+          type="submit"
           isLoading={loading || isGeneratingNumber}
           className="w-full sm:w-auto"
         >
@@ -244,9 +269,11 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
           <div className="p-1.5 sm:p-2 bg-blue-100 rounded-lg">
             <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
           </div>
-          <h3 className="text-base sm:text-lg font-semibold text-slate-900">Invoice Details</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-slate-900">
+            Invoice Details
+          </h3>
         </div>
-        
+
         <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
           <div className="relative">
             <Inputfield
@@ -265,7 +292,7 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
               </div>
             )}
           </div>
-          
+
           <Inputfield
             label="Invoice Date"
             type="date"
@@ -295,9 +322,11 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
             <div className="p-1.5 sm:p-2 bg-blue-100 rounded-lg">
               <User className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
             </div>
-            <h3 className="text-base sm:text-lg font-semibold text-slate-900">Bill From</h3>
+            <h3 className="text-base sm:text-lg font-semibold text-slate-900">
+              Bill From
+            </h3>
           </div>
-          
+
           <div className="space-y-3 sm:space-y-4">
             <Inputfield
               label="Business Name"
@@ -339,9 +368,11 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
             <div className="p-1.5 sm:p-2 bg-emerald-100 rounded-lg">
               <User className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
             </div>
-            <h3 className="text-base sm:text-lg font-semibold text-slate-900">Bill To</h3>
+            <h3 className="text-base sm:text-lg font-semibold text-slate-900">
+              Bill To
+            </h3>
           </div>
-          
+
           <div className="space-y-3 sm:space-y-4">
             <Inputfield
               label="Client Name"
@@ -386,7 +417,9 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
             <div className="p-1.5 sm:p-2 bg-amber-100 rounded-lg">
               <Calculator className="w-4 h-4 sm:w-5 sm:h-5 text-amber-600" />
             </div>
-            <h3 className="text-base sm:text-lg font-semibold text-slate-900">Items & Services</h3>
+            <h3 className="text-base sm:text-lg font-semibold text-slate-900">
+              Items & Services
+            </h3>
           </div>
           <Button
             type="button"
@@ -406,10 +439,14 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
             const quantity = item.quantity || 0;
             const unitPrice = item.unitPrice || 0;
             const taxPercent = item.taxPercent || 0;
-            const itemTotal = quantity * unitPrice + quantity * unitPrice * (taxPercent / 100);
+            const itemTotal =
+              quantity * unitPrice + quantity * unitPrice * (taxPercent / 100);
 
             return (
-              <div key={index} className="p-3 border border-slate-200 rounded-lg bg-slate-50">
+              <div
+                key={index}
+                className="p-3 border border-slate-200 rounded-lg bg-slate-50"
+              >
                 <div className="flex justify-between items-start mb-2">
                   <div className="flex-1">
                     <input
@@ -426,7 +463,9 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="font-semibold text-slate-900">${itemTotal.toFixed(2)}</div>
+                    <div className="font-semibold text-slate-900">
+                      ${itemTotal.toFixed(2)}
+                    </div>
                     {formData.items.length > 1 && (
                       <button
                         type="button"
@@ -438,7 +477,7 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
                     )}
                   </div>
                 </div>
-                
+
                 <div className="grid grid-cols-3 gap-2 mt-3">
                   <input
                     type="number"
@@ -474,27 +513,28 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
           })}
         </div>
 
-        {/* Desktop Items Table */}
+        {/* Items Table */}
         <div className="hidden sm:block overflow-x-auto">
-          <table className="w-full min-w-[600px]">
+          <table className="w-full min-w-[800px]">
+            {" "}
             <thead>
               <tr className="border-b border-slate-200 bg-slate-50">
                 <th className="py-3 px-4 text-left text-xs font-medium text-slate-600 uppercase tracking-wider">
                   Description
                 </th>
-                <th className="py-3 px-4 text-left text-xs font-medium text-slate-600 uppercase tracking-wider w-20">
+                <th className="py-3 px-4 text-left text-xs font-medium text-slate-600 uppercase tracking-wider min-w-[100px]">
                   Qty
                 </th>
-                <th className="py-3 px-4 text-left text-xs font-medium text-slate-600 uppercase tracking-wider w-28">
+                <th className="py-3 px-4 text-left text-xs font-medium text-slate-600 uppercase tracking-wider min-w-[140px]">
                   Price
                 </th>
-                <th className="py-3 px-4 text-left text-xs font-medium text-slate-600 uppercase tracking-wider w-24">
+                <th className="py-3 px-4 text-left text-xs font-medium text-slate-600 uppercase tracking-wider min-w-[100px]">
                   Tax %
                 </th>
-                <th className="py-3 px-4 text-left text-xs font-medium text-slate-600 uppercase tracking-wider w-32">
+                <th className="py-3 px-4 text-left text-xs font-medium text-slate-600 uppercase tracking-wider min-w-[120px]">
                   Total
                 </th>
-                <th className="py-3 px-4 w-10"></th>
+                <th className="py-3 px-4 min-w-[60px]"></th>
               </tr>
             </thead>
             <tbody>
@@ -502,10 +542,16 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
                 const quantity = item.quantity || 0;
                 const unitPrice = item.unitPrice || 0;
                 const taxPercent = item.taxPercent || 0;
-                const itemTotal = quantity * unitPrice + quantity * unitPrice * (taxPercent / 100);
+                const itemTotal =
+                  quantity * unitPrice +
+                  quantity * unitPrice * (taxPercent / 100);
 
                 return (
-                  <tr key={index} className="border-b border-slate-100 last:border-b-0 hover:bg-slate-50">
+                  <tr
+                    key={index}
+                    className="border-b border-slate-100 last:border-b-0 hover:bg-slate-50"
+                  >
+                    {/* Description */}
                     <td className="py-3 px-4">
                       <input
                         type="text"
@@ -516,46 +562,70 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
                         className="w-full text-sm rounded border border-slate-300 px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                       />
                     </td>
+
+                    {/* Quantity */}
                     <td className="py-3 px-4">
-                      <input
-                        type="number"
-                        name="quantity"
-                        value={quantity}
-                        min="1"
-                        onChange={(e) => handleInputChange(e, "items", index)}
-                        className="w-full text-sm rounded border border-slate-300 px-3 py-2 text-center"
-                      />
-                    </td>
-                    <td className="py-3 px-4">
-                      <div className="relative">
-                        <span className="absolute left-3 top-2 text-slate-500">$</span>
+                      <div className="min-w-[80px]">
                         <input
                           type="number"
-                          name="unitPrice"
-                          value={unitPrice}
-                          min="0"
-                          step="0.01"
+                          name="quantity"
+                          value={quantity}
+                          min="1"
                           onChange={(e) => handleInputChange(e, "items", index)}
-                          className="w-full text-sm rounded border border-slate-300 px-8 py-2"
+                          className="w-full text-sm rounded border border-slate-300 px-3 py-2 text-center"
                         />
                       </div>
                     </td>
+
+                    {/* Price */}
                     <td className="py-3 px-4">
-                      <div className="relative">
-                        <input
-                          type="number"
-                          name="taxPercent"
-                          value={taxPercent}
-                          min="0"
-                          onChange={(e) => handleInputChange(e, "items", index)}
-                          className="w-full text-sm rounded border border-slate-300 px-3 py-2 pr-8 text-center"
-                        />
-                        <span className="absolute right-3 top-2 text-slate-500">%</span>
+                      <div className="min-w-[120px]">
+                        <div className="relative">
+                          <span className="absolute left-3 top-2 text-slate-500">
+                            $
+                          </span>
+                          <input
+                            type="number"
+                            name="unitPrice"
+                            value={unitPrice}
+                            min="0"
+                            step="0.01"
+                            onChange={(e) =>
+                              handleInputChange(e, "items", index)
+                            }
+                            className="w-full text-sm rounded border border-slate-300 pl-8 pr-3 py-2"
+                          />
+                        </div>
                       </div>
                     </td>
-                    <td className="py-3 px-4 font-medium text-slate-900">
+
+                    {/* Tax */}
+                    <td className="py-3 px-4">
+                      <div className="min-w-[80px]">
+                        <div className="relative">
+                          <input
+                            type="number"
+                            name="taxPercent"
+                            value={taxPercent}
+                            min="0"
+                            onChange={(e) =>
+                              handleInputChange(e, "items", index)
+                            }
+                            className="w-full text-sm rounded border border-slate-300 px-3 py-2 pr-8 text-center"
+                          />
+                          <span className="absolute right-3 top-2 text-slate-500">
+                            %
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    {/* Total */}
+                    <td className="py-3 px-4 font-medium text-slate-900 whitespace-nowrap">
                       ${itemTotal.toFixed(2)}
                     </td>
+
+                    {/* Remove Button */}
                     <td className="py-3 px-4">
                       {formData.items.length > 1 && (
                         <button
@@ -584,9 +654,11 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
             <div className="p-1.5 sm:p-2 bg-violet-100 rounded-lg">
               <FileText className="w-4 h-4 sm:w-5 sm:h-5 text-violet-600" />
             </div>
-            <h3 className="text-base sm:text-lg font-semibold text-slate-900">Notes & Terms</h3>
+            <h3 className="text-base sm:text-lg font-semibold text-slate-900">
+              Notes & Terms
+            </h3>
           </div>
-          
+
           <div className="space-y-3 sm:space-y-4">
             <TextAreaField
               label="Additional Notes"
@@ -596,7 +668,7 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
               placeholder="Additional notes or instructions..."
               rows={3}
             />
-            
+
             <SelectField
               label="Payment Terms"
               name="paymentTerms"
@@ -614,30 +686,43 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
             <div className="p-1.5 sm:p-2 bg-emerald-100 rounded-lg">
               <DollarSign className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
             </div>
-            <h3 className="text-base sm:text-lg font-semibold text-slate-900">Invoice Summary</h3>
+            <h3 className="text-base sm:text-lg font-semibold text-slate-900">
+              Invoice Summary
+            </h3>
           </div>
-          
+
           <div className="space-y-3">
             <div className="flex justify-between items-center py-2 border-b border-slate-100">
               <span className="text-sm text-slate-600">Subtotal</span>
-              <span className="text-sm font-medium text-slate-900">${subTotal.toFixed(2)}</span>
+              <span className="text-sm font-medium text-slate-900">
+                ${subTotal.toFixed(2)}
+              </span>
             </div>
-            
+
             <div className="flex justify-between items-center py-2 border-b border-slate-100">
               <span className="text-sm text-slate-600">Tax</span>
-              <span className="text-sm font-medium text-slate-900">${taxTotal.toFixed(2)}</span>
+              <span className="text-sm font-medium text-slate-900">
+                ${taxTotal.toFixed(2)}
+              </span>
             </div>
-            
+
             <div className="flex justify-between items-center py-3 border-t border-slate-200">
-              <span className="text-lg font-bold text-slate-900">Total Amount</span>
-              <span className="text-2xl font-bold text-blue-600">${total.toFixed(2)}</span>
+              <span className="text-lg font-bold text-slate-900">
+                Total Amount
+              </span>
+              <span className="text-2xl font-bold text-blue-600">
+                ${total.toFixed(2)}
+              </span>
             </div>
-            
+
             <div className="mt-4 pt-4 border-t border-slate-100">
               <p className="text-xs text-slate-500">
-                {formData.paymentTerms === "Due on receipt" 
+                {formData.paymentTerms === "Due on receipt"
                   ? "Payment is due immediately upon receipt"
-                  : `Payment is due within ${formData.paymentTerms?.replace("Net ", "")} days`}
+                  : `Payment is due within ${formData.paymentTerms?.replace(
+                      "Net ",
+                      ""
+                    )} days`}
               </p>
             </div>
           </div>
@@ -659,7 +744,11 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
           isLoading={loading || isGeneratingNumber}
           className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
         >
-          {loading ? "Saving..." : existingInvoice ? "Update Invoice" : "Create Invoice"}
+          {loading
+            ? "Saving..."
+            : existingInvoice
+            ? "Update Invoice"
+            : "Create Invoice"}
         </Button>
       </div>
     </form>
