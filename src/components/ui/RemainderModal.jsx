@@ -9,8 +9,8 @@ import {
   User,
   DollarSign,
 } from "lucide-react";
-import Button from "../../components/ui/Button";
-import TextAreaField from "../../components/ui/TextAreaField";
+import Button from "./Button";
+import TextAreaField from "./TextAreaField";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPath";
 import toast from "react-hot-toast";
