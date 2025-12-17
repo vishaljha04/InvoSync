@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
-import axiosInstance from "../../utils/axiosInstance";
-import { API_PATHS } from "../../utils/apiPath";
+import axiosInstance from "@/utils/axiosInstance";
+import { API_PATHS } from "@/utils/apiPath";
+
 import {
   Loader2,
   Trash2,
@@ -15,9 +16,9 @@ import {
 } from "lucide-react";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
-import Button from "../../components/ui/Button";
-import RemainderModal from "../../components/ui/RemainderModal";
-import CreateWithAIModal from "../../components/ui/CreateWithAIModal";
+import Button from "@/components/ui/Button";
+import RemainderModal from "@/components/ui/RemainderModal";
+import CreateWithAIModal from "@/components/ui/CreateWithAIModal";
 
 const AllInvoice = () => {
   const [invoices, setInvoices] = useState([]);

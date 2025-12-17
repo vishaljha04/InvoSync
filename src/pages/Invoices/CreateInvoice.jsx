@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import axiosInstance from "../../utils/axiosInstance";
-import { API_PATHS } from "../../utils/apiPath";
+import axiosInstance from "@/utils/axiosInstance";
+import { API_PATHS } from "@/utils/apiPath";
 import {
   Plus,
   Trash2,
@@ -17,11 +17,12 @@ import {
 } from "lucide-react";
 import toast from "react-hot-toast";
 import moment from "moment";
-import { useAuth } from "../../context/AuthContext";
-import Inputfield from "../../components/Ui/Inputfield";
-import TextAreaField from "../../components/Ui/TextAreaField";
-import Button from "../../components/Ui/Button";
-import SelectField from "../../components/Ui/SelectField";
+import { useAuth } from "@/context/AuthContext";
+import Inputfield from "@/components/Ui/Inputfield";
+import TextAreaField from "@/components/Ui/TextAreaField";
+import Button from "@/components/Ui/Button";
+import SelectField from "@/components/Ui/SelectField";
+
 
 const CreateInvoice = ({ existingInvoice, onSave }) => {
   const navigate = useNavigate();
