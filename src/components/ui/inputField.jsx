@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputField = ({ icon: Icon, label, name, ...props }) => {
+const Inputfield = ({ icon: Icon, label, name, ...props }) => {
   return (
     <div>
       <label
@@ -28,4 +28,4 @@ const InputField = ({ icon: Icon, label, name, ...props }) => {
   );
 };
 
-export default InputField;
+export default Inputfield;

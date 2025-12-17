@@ -6,7 +6,7 @@ import { Plus, Trash2, Calculator, FileText, User, Calendar, DollarSign, Phone, 
 import toast from "react-hot-toast";
 import moment from "moment";
 import { useAuth } from "../../context/AuthContext";
-import InputField from "../../components/ui/InputField";
+import Inputfield from "../../components/ui/Inputfield";
 import TextAreaField from "../../components/ui/TextAreaField";
 import Button from "../../components/ui/Button";
 import SelectField from "../../components/ui/SelectField";
@@ -249,7 +249,7 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
         
         <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
           <div className="relative">
-            <InputField
+            <Inputfield
               label="Invoice Number"
               name="invoiceNumber"
               readOnly
@@ -266,7 +266,7 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
             )}
           </div>
           
-          <InputField
+          <Inputfield
             label="Invoice Date"
             type="date"
             name="invoiceDate"
@@ -275,7 +275,7 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
             icon={Calendar}
           />
 
-          <InputField
+          <Inputfield
             label="Due Date"
             type="date"
             name="dueDate"
@@ -299,14 +299,14 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
           </div>
           
           <div className="space-y-3 sm:space-y-4">
-            <InputField
+            <Inputfield
               label="Business Name"
               name="businessName"
               value={formData.billFrom.businessName}
               onChange={(e) => handleInputChange(e, "billFrom")}
               icon={User}
             />
-            <InputField
+            <Inputfield
               label="Email"
               type="email"
               name="email"
@@ -322,7 +322,7 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
               icon={MapPin}
               rows={2}
             />
-            <InputField
+            <Inputfield
               label="Phone"
               type="tel"
               name="phone"
@@ -343,7 +343,7 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
           </div>
           
           <div className="space-y-3 sm:space-y-4">
-            <InputField
+            <Inputfield
               label="Client Name"
               name="clientName"
               value={formData.billTo.clientName}
@@ -351,7 +351,7 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
               icon={User}
               required
             />
-            <InputField
+            <Inputfield
               label="Client Email"
               type="email"
               name="email"
@@ -367,7 +367,7 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
               icon={MapPin}
               rows={2}
             />
-            <InputField
+            <Inputfield
               label="Client Phone"
               type="tel"
               name="phone"

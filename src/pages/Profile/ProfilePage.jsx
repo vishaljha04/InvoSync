@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { User, Mail, Building, MapPin, Phone, Save, LogOut, Edit2, Shield, Calendar, Globe, CheckCircle, AlertCircle } from 'lucide-react';
 import Button from '../../components/ui/Button';
-import InputField from '../../components/ui/InputField';
+import Inputfield from '../../components/ui/Inputfield';
 import TextAreaField from '../../components/ui/TextAreaField';
 import axiosInstance from '../../utils/axiosInstance';
 import { API_PATHS } from '../../utils/apiPath';
@@ -239,7 +239,7 @@ const ProfilePage = () => {
                                                 Personal Information
                                             </h4>
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                                <InputField
+                                                <Inputfield
                                                     label="Full Name"
                                                     name="name"
                                                     value={formData.name}
@@ -248,7 +248,7 @@ const ProfilePage = () => {
                                                     required
                                                     disabled={loading}
                                                 />
-                                                <InputField
+                                                <Inputfield
                                                     label="Email Address"
                                                     type="email"
                                                     name="email"
@@ -269,7 +269,7 @@ const ProfilePage = () => {
                                                 Business Information
                                             </h4>
                                             <div className="space-y-4">
-                                                <InputField
+                                                <Inputfield
                                                     label="Business Name"
                                                     name="businessName"
                                                     value={formData.businessName}
@@ -290,7 +290,7 @@ const ProfilePage = () => {
                                                     disabled={loading}
                                                 />
                                                 
-                                                <InputField
+                                                <Inputfield
                                                     label="Phone Number"
                                                     name="phone"
                                                     value={formData.phone}
