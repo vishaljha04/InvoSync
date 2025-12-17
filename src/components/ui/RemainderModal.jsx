@@ -11,8 +11,8 @@ import {
 } from "lucide-react";
 import Button from "./Button";
 import TextAreaField from "./TextAreaField";
-import axiosInstance from "../../utils/axiosInstance";
-import { API_PATHS } from "../../utils/apiPath";
+import axiosInstance from "@/utils/axiosInstance";
+import { API_PATHS } from "@/utils/apiPath";
 import toast from "react-hot-toast";
 
 const RemainderModal = ({ isOpen, onClose, invoiceId }) => {

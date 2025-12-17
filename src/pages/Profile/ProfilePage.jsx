@@ -15,9 +15,9 @@ import {
   CheckCircle,
   AlertCircle,
 } from "lucide-react";
-import Button from "../../components/Ui/Button";
-import Inputfield from "../../components/Ui/Inputfield";
-import TextAreaField from "../../components/Ui/TextAreaField";
+import Button from "@/components/Ui/Button";
+import Inputfield from "@/components/Ui/Inputfield";
+import TextAreaField from "@/components/Ui/TextAreaField";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPath";
 import toast from "react-hot-toast";
