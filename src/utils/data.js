@@ -6,6 +6,7 @@ import {
   Plus,
   Sparkle,
   Users,
+  Home,
 } from "lucide-react";
 
 export const FEATURE = [
@@ -130,3 +131,15 @@ export const NAVIGATION_MENU = [
   { id: "invoices/new", name: "Create Invoice", icon: Plus },
   { id: "profile", name: "Profile", icon: Users },
 ];
+
+
+//  const NAVIGATION_MENUs = [
+//     { id: "dashboard", name: "Dashboard", icon: Home, path: "/dashboard" },
+//     { id: "invoices", name: "Invoices", icon: FileText, path: "/invoices" },
+//     { id: "create-invoice", name: "Create Invoice", icon: Plus, path: "/invoices/new" },
+//     { id: "clients", name: "Clients", icon: Users, path: "/clients" },
+//     { id: "payments", name: "Payments", icon: CreditCard, path: "/payments" },
+//     { id: "reports", name: "Reports", icon: BarChart, path: "/reports" },
+//     { id: "profile", name: "Profile", icon: UserCircle, path: "/profile" },
+//     { id: "settings", name: "Settings", icon: Settings, path: "/settings" },
+//   ];

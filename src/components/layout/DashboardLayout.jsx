@@ -144,17 +144,43 @@ const DashboardLayout = ({ children, activeMenu }) => {
                 )}
               </button>
             )}
-            <div>
-              <h1 className="sm:text-base text-sm font-semibold flex items-center justify-center text-gray-900">
-                Welcome <span className="hidden sm:block">{"  "}back</span>,
-                <span className="text-blue-500">
-                  {user?.name
-                    ? user.name.charAt(0).toUpperCase() + user.name.slice(1)
-                    : ""}
-                </span>
+            <div className="min-w-0 flex-1">
+              {/* Always visible on all screens */}
+              <h1 className="text-sm sm:text-base font-semibold text-gray-900">
+                Welcome,{" "}
+                <span className="text-blue-600">{user.name}</span>
               </h1>
-              <p className="text-sm text-gray-500 hidden sm:block">
-                Here's your invoice overview
+
+              {/* Different text based on screen size */}
+              <p className="text-xs sm:text-sm text-gray-500">
+                {/* Mobile: Short version */}
+                <span className="sm:hidden">
+                  {activeNavItem === "dashboard"
+                    ? "Invoice overview"
+                    : "Manage"}
+                </span>
+
+                {/* Tablet: Medium version */}
+                <span className="hidden sm:block md:hidden">
+                  {activeNavItem === "dashboard"
+                    ? "Invoice dashboard"
+                    : `${
+                        NAVIGATION_MENU.find(
+                          (item) => item.id === activeNavItem
+                        )?.name
+                      }`}
+                </span>
+
+                {/* Desktop: Full version */}
+                <span className="hidden md:block">
+                  {activeNavItem === "dashboard"
+                    ? "Here's your invoice overview"
+                    : `Managing ${
+                        NAVIGATION_MENU
+                          .find((item) => item.id === activeNavItem)
+                          ?.name?.toLowerCase() || "content"
+                      }`}
+                </span>
               </p>
             </div>
           </div>

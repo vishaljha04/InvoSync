@@ -16,7 +16,7 @@ export const API_PATHS = {
   },
   AI: {
     PARSE_INVOICE_TEXT: "/api/ai/parse-text",
-    GENERATE_REMAINDER: "/api/ai/genrate-remainder",
+    GENERATE_REMAINDER: "/api/ai/generate-remainder",
     GET_DASHBOARD_SUMMARY: "/api/ai/dashboard-summary",
   },
 };
