@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import { Sparkles, X } from "lucide-react";
-import Button from "./Button";
-import TextAreaField from "./TextAreaField";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPath";
 import toast from "react-hot-toast";
@@ -75,10 +73,15 @@ const CreateWithAIModal = ({ isOpen, onClose }) => {
             Create Invoice with AI
           </h3>
           <button
+            type="button"
             onClick={onClose}
-            className="text-slate-400 hover:text-slate-600"
+            aria-label="Close"
+            className="p-1 rounded-md text-slate-400
+             hover:text-slate-600 hover:bg-slate-100
+             focus:outline-none focus:ring-2 focus:ring-blue-800 focus:ring-offset-2
+             transition-colors duration-200"
           >
-            <X />
+            <X className="w-5 h-5" aria-hidden="true" />
           </button>
         </div>
 
@@ -90,26 +93,86 @@ const CreateWithAIModal = ({ isOpen, onClose }) => {
         </p>
 
         {/* Textarea */}
-        <TextAreaField
-          name="invoiceText"
-          label="Paste Invoice Text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder={`Example:
+        <div className="flex flex-col w-full">
+          <label
+            htmlFor="invoiceText"
+            className="mb-2 text-sm font-medium text-gray-700"
+          >
+            Paste Invoice Text
+          </label>
+          <textarea
+            id="invoiceText"
+            name="invoiceText"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder={`Example:
 Invoice for ClientCorp
 2 hours of design work at $50/hour
 Website maintenance - $100`}
-          rows={8}
-        />
+            rows={8}
+            className="w-full px-4 py-2 text-sm text-gray-900 border border-gray-300 rounded-lg
+               focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-500
+               resize-none placeholder-gray-400"
+          />
+        </div>
 
         {/* Actions */}
         <div className="flex justify-end gap-3 mt-6">
-          <Button varient="secondary" onClick={onClose} disabled={isLoading}>
+          {/* Cancel – Secondary */}
+          <button
+            type="button"
+            onClick={onClose}
+            disabled={isLoading}
+            className="inline-flex items-center justify-center font-medium rounded-lg
+             transition-colors duration-200
+             focus:outline-none focus:ring-2 focus:ring-blue-800 focus:ring-offset-2
+             bg-white hover:bg-slate-50 active:bg-slate-100
+             text-slate-700 border border-slate-200 hover:border-slate-300
+             px-4 py-2 h-10 text-sm
+             disabled:opacity-50 disabled:cursor-not-allowed"
+          >
             Cancel
-          </Button>
-          <Button onClick={handleGenerate} isLoading={isLoading}>
+          </button>
+
+          {/* Generate Invoice – Primary with loading */}
+          <button
+            type="button"
+            onClick={handleGenerate}
+            disabled={isLoading}
+            aria-busy={isLoading}
+            className="inline-flex items-center justify-center font-medium rounded-lg
+             transition-colors duration-200
+             focus:outline-none focus:ring-2 focus:ring-blue-800 focus:ring-offset-2
+             bg-blue-900 hover:bg-blue-800 active:bg-blue-900
+             text-white
+             px-4 py-2 h-10 text-sm gap-2
+             disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isLoading && (
+              <svg
+                className="w-4 h-4 animate-spin"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                />
+              </svg>
+            )}
+
             {isLoading ? "Generating..." : "Generate Invoice"}
-          </Button>
+          </button>
         </div>
       </div>
     </div>

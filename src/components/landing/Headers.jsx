@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FileText, Menu, X } from "lucide-react";
 import ProfileDropdown from "../layout/ProfileDropdown";
-import Button from "../ui/Button";
 import { useAuth } from "../../context/AuthContext";
 
 const Headers = () => {
@@ -10,7 +9,7 @@ const Headers = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const navigate = useNavigate();
-  const {isAuthenticated,user,logout} = useAuth();
+  const { isAuthenticated, user, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,7 +19,6 @@ const Headers = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
 
   useEffect(() => {
     const handleClickOutside = () => {
@@ -44,7 +42,6 @@ const Headers = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
-      
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-blue-900 rounded-md flex items-center justify-center">
               <FileText className="w-4 h-4 text-white" />
@@ -110,13 +107,19 @@ const Headers = () => {
           {/* Mobile Menu Button */}
           <div className="lg:hidden">
             <button
+              type="button"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors duration-200"
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMenuOpen}
+              className="p-2 rounded-lg text-gray-600
+             hover:text-gray-900 hover:bg-gray-100
+             focus:outline-none focus:ring-2 focus:ring-blue-800 focus:ring-offset-2
+             transition-colors duration-200"
             >
               {isMenuOpen ? (
-                <X className="w-6 h-6" />
+                <X className="w-6 h-6" aria-hidden="true" />
               ) : (
-                <Menu className="w-6 h-6" />
+                <Menu className="w-6 h-6" aria-hidden="true" />
               )}
             </button>
           </div>
@@ -152,12 +155,18 @@ const Headers = () => {
 
             {/* Auth Section */}
             {isAuthenticated ? (
-              <Button
+              <button
+                type="button"
                 onClick={() => navigate("/dashboard")}
-                className="w-full bg-gradient-to-r from-blue-900 to-blue-950 text-white py-2.5 rounded-lg font-medium hover:brightness-110 transition-all"
+                className="w-full inline-flex items-center justify-center
+             bg-gradient-to-r from-blue-900 to-blue-950
+             text-white py-2.5 rounded-lg font-medium
+             hover:brightness-110
+             focus:outline-none focus:ring-2 focus:ring-blue-800 focus:ring-offset-2
+             transition-all"
               >
                 Go to Dashboard
-              </Button>
+              </button>
             ) : (
               <div className="flex flex-col space-y-3">
                 <Link
