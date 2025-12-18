@@ -14,15 +14,165 @@ import {
   MapPin,
   Mail,
   CreditCard,
+  Loader2,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import moment from "moment";
 import { useAuth } from "@/context/AuthContext";
-import Inputfield from "@/components/Ui/Inputfield";
-import TextAreaField from "@/components/Ui/TextAreaField";
-import Button from "@/components/Ui/Button";
-import SelectField from "@/components/Ui/SelectField";
 
+const TextAreaField = ({ icons: Icon, label, name, ...props }) => {
+  return (
+    <div>
+      <div>
+        <label
+          htmlFor={name}
+          className="block text-sm font-medium text-slate-700 mb-2"
+        >
+          {label}
+        </label>
+        <div className="relative">
+          {Icon && (
+            <div className="absolute top-3 left-0 pl-3 flex items-center pointer-events-none">
+              <Icon className="w-5 h-5 text-slate-400" />
+            </div>
+          )}
+          <textarea
+            name={name}
+            id={name}
+            rows={3}
+            {...props}
+            className={`w-full min-h-[100px] pr-3 py-2 border border-slate-200 rounded-lg bg-white text-slate-900 placeholder-slate-400 resize-vertical focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+              Icon ? "pl-10" : "pl-3"
+            }`}
+          ></textarea>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Inputfield = ({ icon: Icon, label, name, ...props }) => {
+  return (
+    <div>
+      <label
+        htmlFor={name}
+        className="block text-sm font-medium text-slate-700 mb-2"
+      >
+        {label}
+      </label>
+      <div className="relative">
+        {Icon && (
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <Icon className="w-5 h-5 text-slate-400" />
+          </div>
+        )}
+        <input
+          id={name}
+          {...props}
+          name={name}
+          className={`w-full h-10 pr-3 py-2 border border-slate-200 rounded-lg bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-tranaparent ${
+            Icon ? "pl-10" : "pl-3"
+          }`}
+        />
+      </div>
+    </div>
+  );
+};
+
+const SelectField = ({ icon: Icon, label, name, options = [], ...props }) => {
+  return (
+    <div>
+      <label
+        htmlFor={name}
+        className="block text-sm font-medium text-slate-700 mb-2"
+      >
+        {label}
+      </label>
+      <div className="relative">
+        {Icon && (
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <Icon className="w-5 h-5 text-slate-400" />
+          </div>
+        )}
+        <select
+          id={name}
+          name={name}
+          {...props}
+          className={`w-full h-10 pr-3 py-2 border border-slate-200 rounded-lg bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+            Icon ? "pl-10" : "pl-3"
+          }`}
+        >
+          <option value="">Select {label}</option>
+          {options.map((option, index) => (
+            <option key={index} value={option.value || option}>
+              {option.label || option}
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
+  );
+};
+
+const Button = ({
+  varient = "primary",
+  size = "medium",
+  isLoading = false,
+  children,
+  icon: Icon,
+  className = "",
+  type = "button",
+  ...props
+}) => {
+  const baseClasses =
+    "inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+
+  const varientClasses = {
+    primary: "bg-blue-900 hover:bg-blue-800 active:bg-blue-900 text-white",
+    secondary:
+      "bg-white hover:bg-slate-50 active:bg-slate-100 text-slate-700 border border-slate-200 hover:border-slate-300",
+    ghost:
+      "bg-transparent hover:bg-slate-100 active:bg-slate-200 text-slate-700",
+  };
+
+  const sizeClasses = {
+    small: "px-3 py-1 h-8 text-sm gap-1",
+    medium: "px-4 py-2 h-10 text-sm gap-2",
+    large: "px-6 py-3 h-12 text-base gap-3",
+  };
+
+  // Calculate icon size based on button size
+  const iconSize = {
+    small: "w-3.5 h-3.5",
+    medium: "w-4 h-4",
+    large: "w-5 h-5",
+  };
+
+  return (
+    <button
+      type={type}
+      className={`${baseClasses} ${varientClasses[varient]} ${sizeClasses[size]} ${className}`}
+      disabled={isLoading || props.disabled}
+      aria-busy={isLoading}
+      {...props}
+    >
+      {isLoading ? (
+        <>
+          <Loader2
+            className={`${iconSize[size]} animate-spin`}
+            aria-hidden="true"
+          />
+          {children && <span className="ml-2">{children}</span>}
+        </>
+      ) : (
+        <>
+          {Icon && <Icon className={iconSize[size]} aria-hidden="true" />}
+          {children}
+        </>
+      )}
+    </button>
+  );
+};
 
 const CreateInvoice = ({ existingInvoice, onSave }) => {
   const navigate = useNavigate();

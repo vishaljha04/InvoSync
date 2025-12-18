@@ -5,6 +5,97 @@ import { API_PATHS } from "../../utils/apiPath";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
+const TextAreaField = ({ icons: Icon, label, name, ...props }) => {
+  return (
+    <div>
+      <div>
+        <label
+          htmlFor={name}
+          className="block text-sm font-medium text-slate-700 mb-2"
+        >
+          {label}
+        </label>
+        <div className="relative">
+          {Icon && (
+            <div className="absolute top-3 left-0 pl-3 flex items-center pointer-events-none">
+              <Icon className="w-5 h-5 text-slate-400" />
+            </div>
+          )}
+          <textarea
+            name={name}
+            id={name}
+            rows={3}
+            {...props}
+            className={`w-full min-h-[100px] pr-3 py-2 border border-slate-200 rounded-lg bg-white text-slate-900 placeholder-slate-400 resize-vertical focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+              Icon ? "pl-10" : "pl-3"
+            }`}
+          ></textarea>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Button = ({
+  varient = "primary",
+  size = "medium",
+  isLoading = false,
+  children,
+  icon: Icon,
+  className = "",
+  type = "button",
+  ...props
+}) => {
+  const baseClasses =
+    "inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+
+  const varientClasses = {
+    primary: "bg-blue-900 hover:bg-blue-800 active:bg-blue-900 text-white",
+    secondary:
+      "bg-white hover:bg-slate-50 active:bg-slate-100 text-slate-700 border border-slate-200 hover:border-slate-300",
+    ghost:
+      "bg-transparent hover:bg-slate-100 active:bg-slate-200 text-slate-700",
+  };
+
+  const sizeClasses = {
+    small: "px-3 py-1 h-8 text-sm gap-1",
+    medium: "px-4 py-2 h-10 text-sm gap-2",
+    large: "px-6 py-3 h-12 text-base gap-3",
+  };
+
+  // Calculate icon size based on button size
+  const iconSize = {
+    small: "w-3.5 h-3.5",
+    medium: "w-4 h-4",
+    large: "w-5 h-5",
+  };
+
+  return (
+    <button
+      type={type}
+      className={`${baseClasses} ${varientClasses[varient]} ${sizeClasses[size]} ${className}`}
+      disabled={isLoading || props.disabled}
+      aria-busy={isLoading}
+      {...props}
+    >
+      {isLoading ? (
+        <>
+          <Loader2
+            className={`${iconSize[size]} animate-spin`}
+            aria-hidden="true"
+          />
+          {children && <span className="ml-2">{children}</span>}
+        </>
+      ) : (
+        <>
+          {Icon && <Icon className={iconSize[size]} aria-hidden="true" />}
+          {children}
+        </>
+      )}
+    </button>
+  );
+};
+
 const CreateWithAIModal = ({ isOpen, onClose }) => {
   const [text, setText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -73,15 +164,10 @@ const CreateWithAIModal = ({ isOpen, onClose }) => {
             Create Invoice with AI
           </h3>
           <button
-            type="button"
             onClick={onClose}
-            aria-label="Close"
-            className="p-1 rounded-md text-slate-400
-             hover:text-slate-600 hover:bg-slate-100
-             focus:outline-none focus:ring-2 focus:ring-blue-800 focus:ring-offset-2
-             transition-colors duration-200"
+            className="text-slate-400 hover:text-slate-600"
           >
-            <X className="w-5 h-5" aria-hidden="true" />
+            <X />
           </button>
         </div>
 
@@ -93,86 +179,26 @@ const CreateWithAIModal = ({ isOpen, onClose }) => {
         </p>
 
         {/* Textarea */}
-        <div className="flex flex-col w-full">
-          <label
-            htmlFor="invoiceText"
-            className="mb-2 text-sm font-medium text-gray-700"
-          >
-            Paste Invoice Text
-          </label>
-          <textarea
-            id="invoiceText"
-            name="invoiceText"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder={`Example:
+        <TextAreaField
+          name="invoiceText"
+          label="Paste Invoice Text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder={`Example:
 Invoice for ClientCorp
 2 hours of design work at $50/hour
 Website maintenance - $100`}
-            rows={8}
-            className="w-full px-4 py-2 text-sm text-gray-900 border border-gray-300 rounded-lg
-               focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-500
-               resize-none placeholder-gray-400"
-          />
-        </div>
+          rows={8}
+        />
 
         {/* Actions */}
         <div className="flex justify-end gap-3 mt-6">
-          {/* Cancel – Secondary */}
-          <button
-            type="button"
-            onClick={onClose}
-            disabled={isLoading}
-            className="inline-flex items-center justify-center font-medium rounded-lg
-             transition-colors duration-200
-             focus:outline-none focus:ring-2 focus:ring-blue-800 focus:ring-offset-2
-             bg-white hover:bg-slate-50 active:bg-slate-100
-             text-slate-700 border border-slate-200 hover:border-slate-300
-             px-4 py-2 h-10 text-sm
-             disabled:opacity-50 disabled:cursor-not-allowed"
-          >
+          <Button varient="secondary" onClick={onClose} disabled={isLoading}>
             Cancel
-          </button>
-
-          {/* Generate Invoice – Primary with loading */}
-          <button
-            type="button"
-            onClick={handleGenerate}
-            disabled={isLoading}
-            aria-busy={isLoading}
-            className="inline-flex items-center justify-center font-medium rounded-lg
-             transition-colors duration-200
-             focus:outline-none focus:ring-2 focus:ring-blue-800 focus:ring-offset-2
-             bg-blue-900 hover:bg-blue-800 active:bg-blue-900
-             text-white
-             px-4 py-2 h-10 text-sm gap-2
-             disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isLoading && (
-              <svg
-                className="w-4 h-4 animate-spin"
-                viewBox="0 0 24 24"
-                fill="none"
-                aria-hidden="true"
-              >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                />
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                />
-              </svg>
-            )}
-
+          </Button>
+          <Button onClick={handleGenerate} isLoading={isLoading}>
             {isLoading ? "Generating..." : "Generate Invoice"}
-          </button>
+          </Button>
         </div>
       </div>
     </div>
