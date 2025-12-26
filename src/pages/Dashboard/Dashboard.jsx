@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import moment from "moment";
 import AIInsightsCard from "../../components/AIInsightsCard";
-import Loader from "../../components/Ui/Loader";
+import Loader from "../../components/Loader";
 
 const Button = ({
   varient = "primary",

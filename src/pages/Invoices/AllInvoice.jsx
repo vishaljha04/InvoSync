@@ -17,7 +17,7 @@ import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import RemainderModal from "@/components/ui/RemainderModal";
 import CreateWithAIModal from "@/components/ui/CreateWithAIModal";
-import Loader from "../../components/Ui/Loader";
+import Loader from "../../components/Loader";
 const Button = ({
   varient = "primary",
   size = "medium",

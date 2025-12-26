@@ -18,7 +18,7 @@ import {
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPath";
 import toast from "react-hot-toast";
-
+import Loader from "../../components/Loader";
 const TextAreaField = ({ icons: Icon, label, name, ...props }) => {
   return (
     <div>
@@ -173,7 +173,10 @@ const ProfilePage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(true);
+    }, 4000);
 
     try {
       const response = await axiosInstance.put(
@@ -201,6 +204,16 @@ const ProfilePage = () => {
     }
   };
 
+  if (loading) {
+    return (
+      <Loader
+        name="Loading Dashboard"
+        subtitle="Gathering your financial insights..."
+        size="small"
+      />
+    );
+  }
+
   if (!user) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50 p-4">
@@ -225,7 +238,7 @@ const ProfilePage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-      <div className="max-w-4xl mx-auto">
+      <div className=" mx-auto">
         {/* Header */}
         <div className="mb-6 sm:mb-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
