@@ -18,7 +18,7 @@ import {
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPath";
 import toast from "react-hot-toast";
-
+import Loader from "../../components/Ui/Loader";
 const TextAreaField = ({ icons: Icon, label, name, ...props }) => {
   return (
     <div>
@@ -173,7 +173,10 @@ const ProfilePage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(true);
+    }, 2000);
 
     try {
       const response = await axiosInstance.put(
@@ -200,6 +203,16 @@ const ProfilePage = () => {
       toast.success("Logged out successfully");
     }
   };
+
+  if (loading) {
+    return (
+      <Loader
+        name="Loading Dashboard"
+        subtitle="Gathering your financial insights..."
+        size="small"
+      />
+    );
+  }
 
   if (!user) {
     return (

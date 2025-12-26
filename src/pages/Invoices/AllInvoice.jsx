@@ -12,13 +12,12 @@ import {
   AlertCircle,
   Sparkles,
   Mail,
-  Loader,
 } from "lucide-react";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import RemainderModal from "@/components/ui/RemainderModal";
 import CreateWithAIModal from "@/components/ui/CreateWithAIModal";
-
+import Loader from "../../components/Ui/Loader";
 const Button = ({
   varient = "primary",
   size = "medium",
@@ -192,9 +191,11 @@ const AllInvoice = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center w-full  animate-spin h-96 text-blue-600">
-        <Loader2 className="h-8 w-8 " />
-      </div>
+       <Loader
+        name="Loading Invoices"
+        subtitle="Gathering your Invoices..."
+        size="small"
+      />
     );
   }
 
