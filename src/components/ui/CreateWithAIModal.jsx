@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Sparkles, X } from "lucide-react";
+import { Sparkles, X,Loader2 } from "lucide-react";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPath";
 import toast from "react-hot-toast";
