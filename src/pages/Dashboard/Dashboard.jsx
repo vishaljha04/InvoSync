@@ -418,7 +418,7 @@ const Dashboard = () => {
 
           {/* Recent Invoices Card */}
           <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
-            <div className="px-6 py-5 border-b border-slate-200 bg-gradient-to-r from-slate-50 to-white">
+            <div className="px-6 py-5 border-b border-slate-200 bg-linear-to-r from-slate-50 to-white">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
                   <h3 className="text-lg font-semibold text-slate-900">
@@ -553,7 +553,7 @@ const Dashboard = () => {
           />
 
           {/* Quick Actions Card */}
-          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border border-blue-100 p-6">
+          <div className="bg-linear-to-br from-blue-50 to-indigo-50 rounded-2xl border border-blue-100 p-6">
             <h3 className="text-lg font-semibold text-slate-900 mb-4">
               Quick Actions
             </h3>
@@ -664,14 +664,7 @@ const Dashboard = () => {
 
       {/* Footer Stats */}
       <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default Dashboard;
-        <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl p-6 text-white">
+        <div className="bg-linear-to-r from-blue-500 to-blue-600 rounded-2xl p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-90">Conversion Rate</p>
@@ -691,7 +684,7 @@ export default Dashboard;
           </div>
         </div>
 
-        <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-2xl p-6 text-white">
+        <div className="bg-linear-to-r from-emerald-500 to-emerald-600 rounded-2xl p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-90">Avg. Payment Time</p>
@@ -701,7 +694,7 @@ export default Dashboard;
           </div>
         </div>
 
-        <div className="bg-gradient-to-r from-violet-500 to-violet-600 rounded-2xl p-6 text-white">
+        <div className="bg-linear-to-r from-violet-500 to-violet-600 rounded-2xl p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-90">Client Satisfaction</p>
