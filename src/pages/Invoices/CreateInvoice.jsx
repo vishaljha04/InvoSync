@@ -539,6 +539,7 @@ const CreateInvoice = ({ existingInvoice: existingInvoiceProp, onSave }) => {
       </div>
 
       {/* Billing Cards Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
         {/* Bill From Card */}
         <div className="bg-white p-4 sm:p-6 rounded-xl border border-slate-200 shadow-sm">
           <div className="flex items-center gap-2 mb-4 sm:mb-6">
@@ -978,9 +979,6 @@ const CreateInvoice = ({ existingInvoice: existingInvoiceProp, onSave }) => {
   </div>
   );
 };
-
-export default CreateInvoice;
-
 
 export default CreateInvoice;
 
