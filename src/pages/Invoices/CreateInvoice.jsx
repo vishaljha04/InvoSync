@@ -975,8 +975,12 @@ const CreateInvoice = ({ existingInvoice: existingInvoiceProp, onSave }) => {
         </Button>
       </div>
     </form>
-    </div>
+  </div>
+  );
 };
+
+export default CreateInvoice;
+
 
 export default CreateInvoice;
 
