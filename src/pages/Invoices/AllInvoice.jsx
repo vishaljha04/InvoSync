@@ -200,7 +200,7 @@ const AllInvoice = () => {
   }
 
   return (
-    <div>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       <CreateWithAIModal
         isOpen={isAiModalOpen}
         onClose={() => setIsAiModalOpen(!isAiModalOpen)}
@@ -214,28 +214,28 @@ const AllInvoice = () => {
       {/* Header Section */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
         <div className="w-full sm:w-auto">
-          <h1 className="text-lg xs:text-xl sm:text-2xl font-semibold text-slate-900">
+          <h1 className="text-lg sm:text-xl sm:text-2xl font-semibold text-slate-900">
             All Invoices
           </h1>
-          <p className="text-xs xs:text-sm text-slate-600 mt-0.5 xs:mt-1">
+          <p className="text-xs sm:text-sm text-slate-600 mt-0.5 sm:mt-1">
             Manage all your invoices in one place.
           </p>
         </div>
-        <div className="flex flex-col xs:flex-row items-stretch xs:items-center gap-2 w-full sm:w-auto ">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto ">
           <Button
             varient="secondary"
             onClick={() => setIsAiModalOpen(true)}
             icon={Sparkles}
-            className="w-full xs:w-auto justify-center text-xs xs:text-sm"
+            className="w-full sm:w-auto justify-center text-xs sm:text-sm"
             size="small"
           >
-            <span className="hidden xs:inline">Create with AI</span>
-            <span className="xs:hidden">AI Create</span>
+            <span className="hidden sm:inline">Create with AI</span>
+            <span className="sm:hidden">AI Create</span>
           </Button>
           <Button
             onClick={() => navigate("/invoices/new")}
             icon={Plus}
-            className="w-full xs:w-auto justify-center text-xs xs:text-sm"
+            className="w-full sm:w-auto justify-center text-xs sm:text-sm"
             size="small"
           >
             Create Invoice
@@ -247,12 +247,12 @@ const AllInvoice = () => {
       {error && (
         <div className="p-3 sm:p-4 rounded-lg bg-red-50 border border-red-200 mb-4 sm:mb-6">
           <div className="flex items-start">
-            <AlertCircle className="w-4 h-4 xs:w-5 xs:h-5 text-red-600 mt-0.5 mr-2 xs:mr-3 flex-shrink-0" />
+            <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 text-red-600 mt-0.5 mr-2 sm:mr-3 flex-shrink-0" />
             <div className="flex-1">
-              <h3 className="text-xs xs:text-sm font-medium text-red-800 mb-1">
+              <h3 className="text-xs sm:text-sm font-medium text-red-800 mb-1">
                 Error
               </h3>
-              <p className="text-xs xs:text-sm text-red-700">{error}</p>
+              <p className="text-xs sm:text-sm text-red-700">{error}</p>
             </div>
           </div>
         </div>
@@ -261,23 +261,23 @@ const AllInvoice = () => {
       {/* Main Content Card */}
       <div className="bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden">
         {/* Filters Section */}
-        <div className="p-3 xs:p-4 sm:p-6 border-b border-slate-200">
-          <div className="flex flex-col xs:flex-row gap-3 xs:gap-4">
+        <div className="p-3 sm:p-4 sm:p-6 border-b border-slate-200">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <div className="relative flex-grow">
-              <div className="absolute inset-y-0 left-0 pl-2 xs:pl-3 flex items-center pointer-events-none">
-                <Search className="w-4 h-4 xs:w-5 xs:h-5 text-slate-400" />
+              <div className="absolute inset-y-0 left-0 pl-2 sm:pl-3 flex items-center pointer-events-none">
+                <Search className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400" />
               </div>
               <input
                 type="text"
                 placeholder="Search invoices..."
-                className="w-full h-9 xs:h-10 pl-7 xs:pl-10 pr-3 xs:pr-4 py-1.5 xs:py-2 border border-slate-200 rounded-lg bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs xs:text-sm sm:text-base"
+                className="w-full h-9 sm:h-10 pl-7 sm:pl-10 pr-3 sm:pr-4 py-1.5 sm:py-2 border border-slate-200 rounded-lg bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs sm:text-sm sm:text-base"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
             <div className="flex-shrink-0">
               <select
-                className="w-full xs:w-auto h-9 xs:h-10 px-2 xs:px-3 py-1.5 xs:py-2 border border-slate-200 rounded-lg bg-white text-xs xs:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full sm:w-auto h-9 sm:h-10 px-2 sm:px-3 py-1.5 sm:py-2 border border-slate-200 rounded-lg bg-white text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
               >
@@ -292,21 +292,21 @@ const AllInvoice = () => {
 
         {/* Empty State */}
         {filterInvoices.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-6 xs:py-8 sm:py-12 text-center px-3 xs:px-4">
-            <div className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 bg-slate-100 rounded-full flex items-center justify-center mb-3 xs:mb-4">
-              <FileText className="w-5 h-5 xs:w-6 xs:h-6 sm:w-8 sm:h-8 text-slate-400" />
+          <div className="flex flex-col items-center justify-center py-6 sm:py-8 sm:py-12 text-center px-3 sm:px-4">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 sm:w-16 sm:h-16 bg-slate-100 rounded-full flex items-center justify-center mb-3 sm:mb-4">
+              <FileText className="w-5 h-5 sm:w-6 sm:h-6 sm:w-8 sm:h-8 text-slate-400" />
             </div>
-            <h3 className="text-sm xs:text-base sm:text-lg font-medium text-slate-900 mb-1 xs:mb-2">
+            <h3 className="text-sm sm:text-base sm:text-lg font-medium text-slate-900 mb-1 sm:mb-2">
               No invoices found
             </h3>
-            <p className="text-xs xs:text-sm text-slate-500 mb-4 xs:mb-6 max-w-xs">
+            <p className="text-xs sm:text-sm text-slate-500 mb-4 sm:mb-6 max-w-xs">
               Your search or filter criteria did not match any invoices.
             </p>
             {invoices.length === 0 && (
               <Button
                 onClick={() => navigate("/invoices/new")}
                 icon={Plus}
-                className="w-full sm:w-auto text-xs xs:text-sm"
+                className="w-full sm:w-auto text-xs sm:text-sm"
                 size="small"
               >
                 Create First Invoice
@@ -320,7 +320,7 @@ const AllInvoice = () => {
             {filterInvoices.map((invoice) => (
               <div
                 key={invoice._id}
-                className="p-3 xs:p-4 border-b border-slate-200 hover:bg-slate-50"
+                className="p-3 sm:p-4 border-b border-slate-200 hover:bg-slate-50"
                 onClick={() => navigate(`/invoices/${invoice._id}`)}
               >
                 <div className="flex justify-between items-start mb-2">
@@ -532,3 +532,4 @@ const AllInvoice = () => {
 };
 
 export default AllInvoice;
+

@@ -238,7 +238,7 @@ const ProfilePage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-      <div className=" mx-auto">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Header */}
         <div className="mb-6 sm:mb-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -687,3 +687,4 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+

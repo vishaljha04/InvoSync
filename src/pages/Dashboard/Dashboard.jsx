@@ -226,8 +226,9 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Header */}
-      <div className="mb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* Header */}
+        <div className="mb-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-slate-900">
@@ -663,6 +664,13 @@ const Dashboard = () => {
 
       {/* Footer Stats */}
       <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Dashboard;
         <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
@@ -708,3 +716,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+

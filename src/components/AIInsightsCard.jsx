@@ -111,3 +111,4 @@ const AIInsightsCard = () => {
 };
 
 export default AIInsightsCard;
+

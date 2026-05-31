@@ -20,3 +20,4 @@ export const API_PATHS = {
     GET_DASHBOARD_SUMMARY: "api/ai/dashboard-summary",
   },
 };
+

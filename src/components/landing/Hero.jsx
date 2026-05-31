@@ -34,7 +34,7 @@ const Hero = () => {
               </Link>
             )}
             <a
-              href="#features"
+              href="#feature"
               className="border border-black text-black px-8 py-4 rounded-xl font-bold text-sm hover:bg-white hover:text-black transition-all duration-200 hover:scale-105"
             >
               Learn More
@@ -54,3 +54,4 @@ const Hero = () => {
 };
 
 export default Hero;
+

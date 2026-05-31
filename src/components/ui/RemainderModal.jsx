@@ -310,7 +310,7 @@ Accounts Team`;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-2">
-      <div className="bg-white w-full max-w-[95%] xs:max-w-[400px] sm:max-w-[500px] rounded-lg shadow-xl overflow-hidden max-h-[90vh] flex flex-col">
+      <div className="bg-white w-full max-w-[95%] sm:max-w-[400px] sm:max-w-[500px] rounded-lg shadow-xl overflow-hidden max-h-[90vh] flex flex-col">
         <div className="flex justify-between items-start p-3 sm:p-4 border-b border-slate-200 bg-gradient-to-r from-blue-50 to-white">
           <div className="flex items-start gap-2 min-w-0">
             <div className="p-1.5 sm:p-2 bg-blue-100 rounded-lg flex-shrink-0">
@@ -501,3 +501,4 @@ Accounts Team`;
 };
 
 export default RemainderModal;
+
