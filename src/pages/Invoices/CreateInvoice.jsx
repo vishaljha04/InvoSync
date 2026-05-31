@@ -174,15 +174,38 @@ const Button = ({
   );
 };
 
-const CreateInvoice = ({ existingInvoice, onSave }) => {
+const TEMPLATE_OPTIONS = [
+  {
+    value: "classic",
+    label: "Classic",
+    description: "Professional blue header with clean spacing.",
+  },
+  {
+    value: "modern",
+    label: "Modern",
+    description: "Bold dark heading and elegant accent blocks.",
+  },
+  {
+    value: "minimal",
+    label: "Minimal",
+    description: "Simple layout with soft neutral styling.",
+  },
+];
+
+const CreateInvoice = ({ existingInvoice: existingInvoiceProp, onSave }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useAuth();
+  const existingInvoice =
+    existingInvoiceProp || location.state?.existingInvoice || null;
+
   const [formData, setFormData] = useState(
     existingInvoice || {
       invoiceNumber: "",
       invoiceDate: new Date().toISOString().split("T")[0],
       dueDate: "",
+      template: "classic",
+      status: "Pending",
       billFrom: {
         businessName: user?.businessName || "",
         email: user?.email || "",
@@ -366,6 +389,8 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
       subTotal,
       taxTotal,
       total,
+      status: formData.status || "Pending",
+      template: formData.template || "classic",
     };
 
     if (onSave) {
@@ -465,8 +490,54 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
         </div>
       </div>
 
+      {/* Template Selection Card */}
+      <div className="bg-white p-4 sm:p-6 rounded-xl border border-slate-200 shadow-sm">
+        <div className="flex items-center gap-2 mb-3 sm:mb-4">
+          <div className="p-1.5 bg-slate-100 rounded-lg">
+            <FileText className="w-4 h-4 text-slate-600" />
+          </div>
+          <div>
+            <h3 className="text-base sm:text-lg font-semibold text-slate-900">
+              Invoice Template
+            </h3>
+            <p className="text-sm text-slate-500">
+              Choose a layout for your final invoice PDF.
+            </p>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {TEMPLATE_OPTIONS.map((option) => (
+            <button
+              key={option.value}
+              type="button"
+              onClick={() =>
+                setFormData((prev) => ({ ...prev, template: option.value }))
+              }
+              className={`text-left p-4 rounded-xl border transition-shadow duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                formData.template === option.value
+                  ? "border-blue-600 bg-blue-50 shadow-sm"
+                  : "border-slate-200 bg-white"
+              }`}
+            >
+              <div className="flex items-center justify-between gap-3">
+                <span className="font-medium text-slate-900">
+                  {option.label}
+                </span>
+                {formData.template === option.value && (
+                  <span className="text-xs font-semibold text-blue-700">
+                    Selected
+                  </span>
+                )}
+              </div>
+              <p className="mt-2 text-xs text-slate-500">
+                {option.description}
+              </p>
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Billing Cards Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
         {/* Bill From Card */}
         <div className="bg-white p-4 sm:p-6 rounded-xl border border-slate-200 shadow-sm">
           <div className="flex items-center gap-2 mb-4 sm:mb-6">
@@ -716,7 +787,7 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
 
                     {/* Quantity */}
                     <td className="py-3 px-4">
-                      <div className="min-w-[80px]">
+                      <div className="min-w-20">
                         <input
                           type="number"
                           name="quantity"
@@ -730,7 +801,7 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
 
                     {/* Price */}
                     <td className="py-3 px-4">
-                      <div className="min-w-[120px]">
+                      <div className="min-w-30">
                         <div className="relative">
                           <span className="absolute left-3 top-2 text-slate-500">
                             $
@@ -752,7 +823,7 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
 
                     {/* Tax */}
                     <td className="py-3 px-4">
-                      <div className="min-w-[80px]">
+                      <div className="min-w-20">
                         <div className="relative">
                           <input
                             type="number"
@@ -832,7 +903,7 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
         </div>
 
         {/* Totals Card */}
-        <div className="bg-white p-4 sm:p-6 rounded-xl border border-slate-200 shadow-sm bg-gradient-to-br from-slate-50 to-white">
+        <div className="bg-white p-4 sm:p-6 rounded-xl border border-slate-200 shadow-sm bg-linear-to-br from-slate-50 to-white">
           <div className="flex items-center gap-2 mb-4 sm:mb-6">
             <div className="p-1.5 sm:p-2 bg-emerald-100 rounded-lg">
               <DollarSign className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
@@ -893,7 +964,7 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
         <Button
           type="submit"
           isLoading={loading || isGeneratingNumber}
-          className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
+          className="flex-1 bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
         >
           {loading
             ? "Saving..."
