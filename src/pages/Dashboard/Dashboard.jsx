@@ -249,6 +249,7 @@ const Dashboard = () => {
             </Button>
           </div>
         </div>
+      </div>
 
         {/* Quick Stats Bar */}
         <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
